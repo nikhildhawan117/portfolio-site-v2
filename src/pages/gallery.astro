@@ -66,6 +66,7 @@ const images = [
 		border-radius: 8px;
 		aspect-ratio: 4/3;
 		cursor: pointer;
+		will-change: transform;
 	}
 
 	.gallery-img {
@@ -73,7 +74,8 @@ const images = [
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
-		transition: transform 0.4s ease;
+		transition: transform 0.25s ease-out;
+		will-change: transform;
 	}
 
 	.gallery-img-turkey {

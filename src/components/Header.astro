@@ -65,9 +65,10 @@
 					themeIcon.classList.add('moon-enter');
 					setTimeout(() => {
 						themeIcon.classList.remove('moon-enter', 'animating');
+						themeIcon.style.willChange = 'auto';
 						isAnimating = false;
-					}, 600);
-				}, 200);
+					}, 350);
+				}, 150);
 			} else {
 				// Transitioning to light: moon spins, then sun appears
 				themeIcon.classList.add('to-light');
@@ -78,9 +79,10 @@
 					themeIcon.classList.add('sun-enter');
 					setTimeout(() => {
 						themeIcon.classList.remove('sun-enter', 'animating');
+						themeIcon.style.willChange = 'auto';
 						isAnimating = false;
-					}, 400);
-				}, 200);
+					}, 350);
+				}, 150);
 			}
 		} else {
 			// Initial load - no animation
@@ -196,10 +198,11 @@
 		position: relative;
 		width: 18px;
 		height: 18px;
-		transition: transform 0.3s ease;
+		transition: transform 0.2s ease;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		will-change: transform;
 	}
 
 	.theme-icon .icon {
@@ -211,22 +214,26 @@
 
 	/* Animation: Sun spinning out */
 	.theme-icon.animating.to-dark {
-		animation: spinOut 0.4s ease-in-out;
+		animation: spinOut 0.25s ease-out;
+		will-change: transform, opacity;
 	}
 
 	/* Animation: Moon entering (starts upside down top-right, rotates to bottom-right, then reverses) */
 	.theme-icon.moon-enter {
-		animation: moonEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		animation: moonEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		will-change: transform, opacity;
 	}
 
 	/* Animation: Moon spinning out */
 	.theme-icon.animating.to-light {
-		animation: spinOut 0.4s ease-in-out;
+		animation: spinOut 0.25s ease-out;
+		will-change: transform, opacity;
 	}
 
 	/* Animation: Sun entering */
 	.theme-icon.sun-enter {
-		animation: sunEnter 0.4s ease-in-out;
+		animation: sunEnter 0.35s ease-out;
+		will-change: transform, opacity;
 	}
 
 	@keyframes spinOut {
