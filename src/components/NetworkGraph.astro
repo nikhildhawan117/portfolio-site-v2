@@ -1,0 +1,230 @@
+---
+---
+
+<div id="network-graph-container" class="graph-container"></div>
+<button id="toggle-graph" class="graph-toggle" aria-label="Toggle network graph">
+	<span class="graph-icon">✦</span>
+</button>
+
+<script>
+	let graphActive = false;
+	const container = document.getElementById('network-graph-container');
+	const toggleButton = document.getElementById('toggle-graph');
+	
+	if (container && toggleButton) {
+		const canvas = document.createElement('canvas');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		canvas.style.width = '100%';
+		canvas.style.height = '100%';
+		container.appendChild(canvas);
+		
+		const ctx = canvas.getContext('2d');
+		if (!ctx) throw new Error('Could not get canvas context');
+		
+		// Node class
+		interface NodeType {
+			x: number;
+			y: number;
+			vx: number;
+			vy: number;
+			radius: number;
+			update(): void;
+			draw(): void;
+		}
+		
+		class Node implements NodeType {
+			x: number;
+			y: number;
+			vx: number;
+			vy: number;
+			radius: number;
+			
+			constructor(x: number, y: number) {
+				this.x = x;
+				this.y = y;
+				this.vx = (Math.random() - 0.5) * 0.3;
+				this.vy = (Math.random() - 0.5) * 0.3;
+				this.radius = Math.random() * 2 + 1.5;
+			}
+			
+			update() {
+				this.x += this.vx;
+				this.y += this.vy;
+				
+				// Bounce off walls
+				if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+				if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+				
+				// Keep in bounds
+				this.x = Math.max(0, Math.min(canvas.width, this.x));
+				this.y = Math.max(0, Math.min(canvas.height, this.y));
+			}
+			
+			draw() {
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+		
+		// Create nodes
+		const nodes: NodeType[] = [];
+		const nodeCount = 40;
+		
+		for (let i = 0; i < nodeCount; i++) {
+			nodes.push(new Node(
+				Math.random() * canvas.width,
+				Math.random() * canvas.height
+			));
+		}
+		
+		// Mouse node
+		let mouseNode: NodeType | null = null;
+		let mouseX = 0;
+		let mouseY = 0;
+		
+		// Draw function
+		function draw() {
+			if (!graphActive) {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				requestAnimationFrame(draw);
+				return;
+			}
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			// Get theme colors - using warm accent color
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			ctx.strokeStyle = isDark ? 'rgba(212, 133, 106, 0.15)' : 'rgba(196, 112, 75, 0.12)';
+			ctx.fillStyle = isDark ? 'rgba(212, 133, 106, 0.4)' : 'rgba(196, 112, 75, 0.35)';
+			
+			// Update and draw nodes
+			nodes.forEach(node => {
+				node.update();
+				node.draw();
+			});
+			
+			// Draw mouse node if active
+			if (mouseNode) {
+				mouseNode.x = mouseX;
+				mouseNode.y = mouseY;
+				mouseNode.draw();
+				
+				// Connect mouse node to nearby nodes
+				nodes.forEach(node => {
+					const dx = mouseNode!.x - node.x;
+					const dy = mouseNode!.y - node.y;
+					const distance = Math.sqrt(dx * dx + dy * dy);
+					
+					if (distance < 150) {
+						ctx.beginPath();
+						ctx.moveTo(mouseNode!.x, mouseNode!.y);
+						ctx.lineTo(node.x, node.y);
+						ctx.stroke();
+					}
+				});
+			}
+			
+			// Connect nearby nodes
+			for (let i = 0; i < nodes.length; i++) {
+				for (let j = i + 1; j < nodes.length; j++) {
+					const dx = nodes[i].x - nodes[j].x;
+					const dy = nodes[i].y - nodes[j].y;
+					const distance = Math.sqrt(dx * dx + dy * dy);
+					
+					if (distance < 100) {
+						ctx.beginPath();
+						ctx.moveTo(nodes[i].x, nodes[i].y);
+						ctx.lineTo(nodes[j].x, nodes[j].y);
+						ctx.stroke();
+					}
+				}
+			}
+			
+			requestAnimationFrame(draw);
+		}
+		
+		// Handle resize
+		function resize() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+		window.addEventListener('resize', resize);
+		
+		// Toggle graph
+		toggleButton.addEventListener('click', () => {
+			graphActive = !graphActive;
+			container.style.pointerEvents = graphActive ? 'auto' : 'none';
+			container.style.opacity = graphActive ? '1' : '0';
+			toggleButton.classList.toggle('active', graphActive);
+			
+			if (graphActive && !mouseNode) {
+				mouseNode = new Node(mouseX, mouseY);
+			}
+		});
+		
+		// Track mouse
+		document.addEventListener('mousemove', (e) => {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+		});
+		
+		// Start animation
+		draw();
+	}
+</script>
+
+<style>
+	.graph-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.4s ease;
+	}
+
+	.graph-toggle {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		width: 48px;
+		height: 48px;
+		background-color: var(--card-bg);
+		color: var(--text-muted);
+		border-radius: 50%;
+		box-shadow: var(--shadow);
+		z-index: 50;
+		cursor: pointer;
+		border: 1px solid var(--border);
+		font-size: 1.1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+	}
+
+	.graph-toggle:hover {
+		box-shadow: var(--shadow-hover);
+		color: var(--accent);
+		transform: scale(1.05);
+	}
+
+	.graph-toggle.active {
+		background-color: var(--accent);
+		color: white;
+		border-color: var(--accent);
+	}
+
+	.graph-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.graph-toggle:hover .graph-icon {
+		transform: rotate(45deg);
+	}
+</style>

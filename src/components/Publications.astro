@@ -1,0 +1,237 @@
+---
+interface Publication {
+	title: string;
+	authors: string[];
+	venue: string;
+	year: number;
+	link?: string;
+	abstract?: string;
+	featured?: boolean;
+}
+
+const publications: Publication[] = [
+	{
+		title: "Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities",
+		authors: ["G. Comanici", "E. Bieber", "M. Schaekermann", "I. Pasupat", "N. Sachdeva", "I. Dhillon", "N. Dhawan", "et al."],
+		venue: "arXiv preprint arXiv:2507.06261",
+		year: 2025,
+		featured: true,
+		link: "https://arxiv.org/abs/2507.06261",
+		abstract: "Technical report introducing Gemini 2.5, featuring advanced reasoning capabilities, multimodality, extended context windows, and next-generation agentic capabilities."
+	},
+	{
+		title: "Sulfur-or Heavy Atom-Containing Nanoparticles, Methods of Making Same, and Uses Thereof",
+		authors: ["F.F.E. Kohle", "J.A. Hinckley", "N. Dhawan", "U.B. Wiesner"],
+		venue: "US Patent 12,397,067",
+		year: 2025,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en"
+	},
+	{
+		title: "Hammers for Robots: Designing Tools for Reinforcement Learning Agents",
+		authors: ["M.V. Law", "Z. Li", "A. Rajesh", "N. Dhawan", "A. Kwatra", "G. Hoffman"],
+		venue: "ACM Designing Interactive Systems Conference (DIS)",
+		year: 2021,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en",
+		abstract: "This paper discusses the design of tools tailored for reinforcement learning agents, enhancing their interaction capabilities and enabling more effective human-robot collaboration."
+	},
+	{
+		title: "Design Intention Inference for Virtual Co-Design Agents",
+		authors: ["M.V. Law", "A. Kwatra", "N. Dhawan", "M. Einhorn", "A. Rajesh", "G. Hoffman"],
+		venue: "ACM International Conference on Intelligent Virtual Agents (IVA)",
+		year: 2020,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en",
+		abstract: "Focuses on inferring design intentions to improve collaboration between humans and virtual co-design agents, enabling more intuitive and effective design processes."
+	},
+	{
+		title: "Amorphous Quantum Nanomaterials",
+		authors: ["F.F.E. Kohle", "J.A. Hinckley", "S. Li", "N. Dhawan", "W.P. Katt", "J.A. Erstling", "et al."],
+		venue: "Advanced Materials",
+		year: 2019,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en",
+		abstract: "Introduces amorphous quantum nanomaterials with potential applications in various technological fields, exploring novel material properties and synthesis methods."
+	},
+	{
+		title: "Side-by-Side Human–Computer Design Using a Tangible User Interface",
+		authors: ["M.V. Law", "N. Dhawan", "H. Bang", "S.Y. Yoon", "D. Selva", "G. Hoffman"],
+		venue: "International Conference on Design Computing and Cognition (DCC) — Best Paper Award",
+		year: 2018,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en",
+		abstract: "Best Paper Award. Presents a tangible user interface facilitating collaborative design processes between humans and computers."
+	},
+	{
+		title: "Preventing Catastrophic Forgetting in an Online Learning Setting",
+		authors: ["A. Borthakur", "M. Einhorn", "N. Dhawan"],
+		venue: "Research Paper",
+		year: 2019,
+		link: "https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en",
+		abstract: "Explores methods to prevent catastrophic forgetting in neural networks during online learning scenarios."
+	}
+];
+---
+
+<section id="publications" class="section publications-section">
+	<div class="container">
+		<h2>Publications</h2>
+		<div class="publications-grid">
+			{publications.map((pub) => (
+				<article class={`publication-card ${pub.featured ? 'featured' : ''}`}>
+					<div class="pub-meta">
+						<span class="pub-year">{pub.year}</span>
+					</div>
+					<div class="pub-content">
+						<h3 class="pub-title">
+							{pub.title}
+						</h3>
+						<p class="pub-authors">
+							{pub.authors.join(", ")}
+						</p>
+						<p class="pub-venue">
+							{pub.venue}
+						</p>
+						{pub.abstract && (
+							<p class="pub-abstract">
+								{pub.abstract}
+							</p>
+						)}
+						{pub.link && (
+							<a href={pub.link} target="_blank" rel="noopener noreferrer" class="pub-link">
+								View Publication
+								<span class="arrow">→</span>
+							</a>
+						)}
+					</div>
+				</article>
+			))}
+		</div>
+		<p class="scholar-link">
+			<a href="https://scholar.google.com/citations?user=ZAUnMp8AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+				View all publications on Google Scholar →
+			</a>
+		</p>
+	</div>
+</section>
+
+<style>
+	.publications-section {
+		background-color: var(--bg-secondary);
+	}
+
+	.publications-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.publication-card {
+		display: grid;
+		grid-template-columns: 100px 1fr;
+		gap: 2rem;
+		padding: 2rem;
+		background-color: var(--card-bg);
+		border-radius: 8px;
+		box-shadow: var(--shadow);
+		transition: box-shadow 0.3s ease, transform 0.3s ease;
+	}
+
+	.publication-card.featured {
+		border-left: 3px solid var(--accent);
+	}
+
+	.publication-card:hover {
+		box-shadow: var(--shadow-hover);
+		transform: translateY(-2px);
+	}
+
+	.pub-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.pub-year {
+		font-family: 'Fraunces', Georgia, serif;
+		font-size: 1rem;
+		font-weight: 500;
+		color: var(--accent);
+	}
+
+	.pub-title {
+		color: var(--text-primary);
+		margin-bottom: 0.5rem;
+		line-height: 1.4;
+	}
+
+	.pub-authors {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		margin-bottom: 0.25rem;
+	}
+
+	.pub-venue {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		font-style: italic;
+	}
+
+	.pub-abstract {
+		margin-top: 1rem;
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--text-secondary);
+	}
+
+	.pub-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.pub-link:hover {
+		color: var(--accent-hover);
+		text-decoration: none;
+	}
+
+	.pub-link .arrow {
+		transition: transform 0.2s ease;
+	}
+
+	.pub-link:hover .arrow {
+		transform: translateX(4px);
+	}
+
+	.scholar-link {
+		margin-top: 2rem;
+		text-align: center;
+	}
+
+	.scholar-link a {
+		color: var(--accent);
+		font-weight: 500;
+		text-decoration: none;
+	}
+
+	.scholar-link a:hover {
+		color: var(--accent-hover);
+	}
+
+	@media (max-width: 768px) {
+		.publication-card {
+			grid-template-columns: 1fr;
+			gap: 0.75rem;
+		}
+
+		.pub-meta {
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.pub-year {
+			font-size: 0.9rem;
+		}
+	}
+</style>

@@ -1,0 +1,186 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Nikhil Dhawan - Researcher at Google DeepMind" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+	<head>
+		<script is:inline>
+			// Immediately set theme to prevent flash
+			(function() {
+				const savedTheme = localStorage.getItem('theme');
+				if (savedTheme) {
+					document.documentElement.setAttribute('data-theme', savedTheme);
+				}
+			})();
+		</script>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/x-icon" href="/images/favicon1.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+		<title>{title}</title>
+		<style is:global>
+			:root {
+				--bg-primary: #FDFBF7;
+				--bg-secondary: #F5F1EB;
+				--bg-tertiary: #EDE8DF;
+				--text-primary: #2D2A26;
+				--text-secondary: #6B6560;
+				--text-muted: #9B9590;
+				--accent: #C4704B;
+				--accent-hover: #A85A38;
+				--accent-light: #E8D4CB;
+				--border: #E0DBD3;
+				--card-bg: #FFFFFF;
+				--shadow: 0 2px 20px rgba(45, 42, 38, 0.06);
+				--shadow-hover: 0 8px 30px rgba(45, 42, 38, 0.12);
+			}
+
+			[data-theme="dark"] {
+				--bg-primary: #1C1A17;
+				--bg-secondary: #252320;
+				--bg-tertiary: #2E2B27;
+				--text-primary: #F5F1EB;
+				--text-secondary: #A9A49D;
+				--text-muted: #6B6560;
+				--accent: #D4856A;
+				--accent-hover: #E8A088;
+				--accent-light: #3D3530;
+				--border: #3D3A35;
+				--card-bg: #252320;
+				--shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+				--shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.3);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+				background-color: var(--bg-primary);
+				color: var(--text-primary);
+				line-height: 1.7;
+				font-size: 16px;
+				font-weight: 400;
+				letter-spacing: -0.01em;
+				transition: background-color 0.4s ease, color 0.4s ease;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			.container {
+				max-width: 1000px;
+				margin-left: auto;
+				margin-right: auto;
+				padding-left: 4rem;
+				padding-right: 4rem;
+			}
+
+			.section {
+				padding-top: 5rem;
+				padding-bottom: 5rem;
+				padding-left: 4rem;
+				padding-right: 4rem;
+			}
+			
+			.section .container {
+				padding-left: 0;
+				padding-right: 0;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				font-family: 'Fraunces', Georgia, serif;
+				font-weight: 500;
+				line-height: 1.25;
+				letter-spacing: -0.02em;
+				color: var(--text-primary);
+			}
+
+			h1 {
+				font-size: 2.75rem;
+				margin-bottom: 0.75rem;
+			}
+
+			h2 {
+				font-size: 2rem;
+				margin-bottom: 2.5rem;
+				position: relative;
+			}
+
+			h3 {
+				font-size: 1.25rem;
+				margin-bottom: 0.5rem;
+				font-weight: 500;
+			}
+
+			p {
+				color: var(--text-secondary);
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			button {
+				cursor: pointer;
+				border: none;
+				background: none;
+				font-family: inherit;
+			}
+
+			::selection {
+				background-color: var(--accent-light);
+				color: var(--text-primary);
+			}
+
+			@media (max-width: 768px) {
+				.container {
+					padding-left: 1.5rem;
+					padding-right: 1.5rem;
+				}
+
+				.section {
+					padding-top: 3rem;
+					padding-bottom: 3rem;
+					padding-left: 1.5rem;
+					padding-right: 1.5rem;
+				}
+
+				h1 {
+					font-size: 2rem;
+				}
+
+				h2 {
+					font-size: 1.75rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<slot />
+		<script>
+			// Load saved theme or default to light (Header component handles the toggle)
+			const html = document.documentElement;
+			const savedTheme = localStorage.getItem('theme') || 'light';
+			html.setAttribute('data-theme', savedTheme);
+		</script>
+	</body>
+</html>

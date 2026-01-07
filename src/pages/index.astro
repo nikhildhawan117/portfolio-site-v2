@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Bio from '../components/Bio.astro';
+import Publications from '../components/Publications.astro';
+import Projects from '../components/Projects.astro';
+import Timeline from '../components/Timeline.astro';
+import NetworkGraph from '../components/NetworkGraph.astro';
+---
+
+<BaseLayout title="Nikhil Dhawan — Researcher at Google DeepMind">
+	<NetworkGraph />
+	<Header />
+	<main>
+		<Bio />
+		<Publications />
+		<Projects />
+		<Timeline />
+	</main>
+	<footer class="footer">
+		<div class="container">
+			<p>© {new Date().getFullYear()} Nikhil Dhawan</p>
+		</div>
+	</footer>
+</BaseLayout>
+
+<style>
+	.footer {
+		padding: 3rem 0;
+		text-align: center;
+		border-top: 1px solid var(--border);
+	}
+
+	.footer p {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+	}
+</style>

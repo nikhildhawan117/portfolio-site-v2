@@ -1,0 +1,185 @@
+---
+interface TimelineItem {
+	title: string;
+	organization: string;
+	period: string;
+	description: string;
+	logo: string;
+}
+
+const timelineItems: TimelineItem[] = [
+	{
+		title: "Researcher",
+		organization: "Google DeepMind",
+		period: "2024 — Present",
+		description: "Working on Gemini, focusing on reinforcement learning and post-training to improve coding abilities and software engineering capabilities.",
+		logo: "/images/logos/deepmind.png"
+	},
+	{
+		title: "Software Engineer",
+		organization: "Google Ads",
+		period: "2023 — 2024",
+		description: "Worked on ads optimization and recommendations, developing machine learning models for improved ad targeting.",
+		logo: "/images/logos/google.png"
+	},
+	{
+		title: "Software Engineer / Data Scientist",
+		organization: "Microsoft Azure",
+		period: "2019 — 2023",
+		description: "Worked on research economics and machine learning problems for Azure cloud compute. Reported to Patrick Hummel, Senior Director of Economics.",
+		logo: "/images/logos/msft.png"
+	},
+	{
+		title: "Software Engineering Intern",
+		organization: "The Blackstone Group",
+		period: "Summer 2018",
+		description: "Interned at one of the world's leading investment firms, gaining experience in financial technology.",
+		logo: "/images/logos/bx.png"
+	},
+	{
+		title: "B.Sc. Computer Science",
+		organization: "Cornell University",
+		period: "2015 — 2019",
+		description: "Studied Computer Science, Electrical Engineering, and Business. Undergraduate researcher in the Human Robot Collaboration and Companionship Lab under Guy Hoffman.",
+		logo: "/images/logos/cornell.png"
+	},
+	{
+		title: "High School",
+		organization: "Spackenkill High School",
+		period: "2011 — 2015",
+		description: "Graduated with honors, focusing on mathematics and computer science.",
+		logo: "/images/logos/spackenkill high school.png"
+	}
+];
+---
+
+<section id="timeline" class="section timeline-section">
+	<div class="container">
+		<h2>Timeline</h2>
+		<div class="timeline">
+			{timelineItems.map((item, index) => (
+				<div class="timeline-item">
+					<div class="timeline-marker">
+						<div class="timeline-dot"></div>
+						{index < timelineItems.length - 1 && <div class="timeline-line"></div>}
+					</div>
+					<div class="timeline-content">
+						<div class="timeline-header">
+							<img 
+								src={item.logo} 
+								alt={item.organization}
+								class="timeline-logo"
+							/>
+							<div class="timeline-info">
+								<h3 class="timeline-title">{item.title}</h3>
+								<p class="timeline-org">{item.organization}</p>
+								<p class="timeline-period">{item.period}</p>
+							</div>
+						</div>
+						<p class="timeline-description">{item.description}</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.timeline-section {
+		background-color: var(--bg-secondary);
+	}
+
+	.timeline {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.timeline-item {
+		display: grid;
+		grid-template-columns: 24px 1fr;
+		gap: 2rem;
+	}
+
+	.timeline-marker {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.timeline-dot {
+		width: 12px;
+		height: 12px;
+		background-color: var(--accent);
+		border-radius: 50%;
+		flex-shrink: 0;
+		margin-top: 6px;
+	}
+
+	.timeline-line {
+		width: 2px;
+		flex-grow: 1;
+		background-color: var(--border);
+		margin-top: 8px;
+	}
+
+	.timeline-content {
+		padding-bottom: 3rem;
+	}
+
+	.timeline-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 1.25rem;
+		margin-bottom: 1rem;
+	}
+
+	.timeline-logo {
+		width: 48px;
+		height: 48px;
+		object-fit: contain;
+		background-color: var(--card-bg);
+		padding: 8px;
+		border-radius: 8px;
+		box-shadow: var(--shadow);
+	}
+
+	.timeline-info {
+		flex: 1;
+	}
+
+	.timeline-title {
+		color: var(--text-primary);
+		margin-bottom: 0.15rem;
+		font-size: 1.1rem;
+	}
+
+	.timeline-org {
+		color: var(--accent);
+		font-size: 0.95rem;
+		font-weight: 500;
+		margin-bottom: 0.15rem;
+	}
+
+	.timeline-period {
+		color: var(--text-muted);
+		font-size: 0.85rem;
+	}
+
+	.timeline-description {
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--text-secondary);
+		padding-left: calc(48px + 1.25rem);
+	}
+
+	@media (max-width: 768px) {
+		.timeline-item {
+			gap: 1rem;
+		}
+
+		.timeline-description {
+			padding-left: 0;
+		}
+	}
+</style>

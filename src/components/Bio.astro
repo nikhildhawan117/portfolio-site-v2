@@ -1,0 +1,206 @@
+---
+const interests = [
+	"Reinforcement Learning",
+	"Agentic Software Engineering",
+	"Large Language Models",
+	"Machine Learning",
+	"Causal Inference",
+	"Econometrics",
+	"Evidence-Based Medicine",
+];
+---
+
+<section id="bio" class="section">
+	<div class="bio-container">
+		<div class="bio-image-wrapper">
+			<img 
+				src="/images/pictures of nikhil/me_in_front_of_deep_mind_logo_london.jpeg" 
+				alt="Nikhil Dhawan" 
+				class="bio-image"
+			/>
+			<div class="interests">
+				<p class="interests-label">Research Interests</p>
+				<div class="interests-list">
+					{interests.map((interest) => (
+						<span class="interest-tag">{interest}</span>
+					))}
+				</div>
+			</div>
+		</div>
+		<div class="bio-content">
+			<p class="greeting">Hello, I'm</p>
+			<h1>Nikhil Dhawan</h1>
+			<p class="role">Researcher at Google DeepMind</p>
+			<div class="bio-text">
+				<p>
+					I'm currently a researcher at <a href="https://deepmind.google/" target="_blank" rel="noopener">Google DeepMind</a> working on Gemini, focusing on reinforcement learning and post-training to improve its coding abilities and make it a better software engineer. I've been at DeepMind for over a year now, and I'm passionate about pushing the boundaries of AI capabilities.
+				</p>
+				<p>
+					Prior to DeepMind, I was a software engineer at <a href="https://www.google.com" target="_blank" rel="noopener">Google</a> working on ads optimization and recommendations. Before that, I was a software engineer and data scientist at <a href="https://microsoft.com" target="_blank" rel="noopener">Microsoft</a>, working on research economics and machine learning problems related to <a href="https://azure.microsoft.com" target="_blank" rel="noopener">Microsoft Azure</a>. During my time there, I had the great fortune of working with and reporting to the Senior Director of Economics in Azure, <a href="https://patrickhummelecon.github.io/" target="_blank" rel="noopener">Patrick Hummel</a>. I've also previously interned at <a href="https://www.blackstone.com" target="_blank" rel="noopener">The Blackstone Group</a> and as a researcher at <a href="https://tech.cornell.edu" target="_blank" rel="noopener">Cornell Tech</a>.
+				</p>
+				<p>
+					I attended <a href="https://www.cornell.edu" target="_blank" rel="noopener">Cornell University</a> from 2015–2019 where I studied Computer Science, Electrical Engineering, and Business. While at Cornell, I was an undergraduate researcher in the <a href="https://hrc2.io" target="_blank" rel="noopener">Human Robot Collaboration and Companionship Lab</a> under the supervision of <a href="http://www.guyhoffman.com" target="_blank" rel="noopener">Guy Hoffman</a>. My research focused on studying side-by-side collaborative design between humans and intelligent agents, and I co-authored several publications including one which won Best Paper at the 2018 Design Computing and Cognition conference.
+				</p>
+				<p>
+					I absolutely love New York City and call Manhattan home. Beyond research, I'm passionate about cooking—I've taken classes at the Culinary Institute of America—lifting weights, and traveling to experience different cultures and cuisines around the world.
+				</p>
+			</div>
+			<div class="bio-images">
+				<img 
+					src="/images/pictures of nikhil/me_and_friend_nyc_skyline.jpeg" 
+					alt="NYC Skyline" 
+					class="bio-thumbnail"
+				/>
+				<img 
+					src="/images/pictures of nikhil/me_cooking_with_turkey.jpeg" 
+					alt="Cooking" 
+					class="bio-thumbnail bio-thumbnail-turkey"
+				/>
+				<img 
+					src="/images/pictures of nikhil/me_in_san_diego_sunset_breathtaking.jpeg" 
+					alt="San Diego Sunset" 
+					class="bio-thumbnail"
+				/>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.bio-container {
+		max-width: 1000px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 280px 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.bio-image-wrapper {
+		position: sticky;
+		top: 120px;
+	}
+
+	.bio-image {
+		width: 100%;
+		border-radius: 8px;
+		box-shadow: var(--shadow);
+	}
+
+	.interests {
+		margin-top: 1.5rem;
+	}
+
+	.interests-label {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--text-muted);
+		margin-bottom: 0.75rem;
+		font-weight: 500;
+	}
+
+	.interests-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.interest-tag {
+		padding: 0.3rem 0.7rem;
+		background-color: var(--bg-secondary);
+		border-radius: 100px;
+		font-size: 0.75rem;
+		color: var(--text-secondary);
+		font-weight: 500;
+	}
+
+	.greeting {
+		font-size: 0.95rem;
+		color: var(--accent);
+		margin-bottom: 0.5rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+	}
+
+	.role {
+		font-size: 1.1rem;
+		color: var(--text-muted);
+		margin-bottom: 2rem;
+		font-weight: 400;
+	}
+
+	.bio-text {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.bio-text p {
+		font-size: 1.05rem;
+		line-height: 1.8;
+		color: var(--text-secondary);
+	}
+
+	.bio-text a {
+		color: var(--accent);
+		font-weight: 500;
+		text-decoration: none;
+	}
+
+	.bio-text a:hover {
+		color: var(--accent-hover);
+		text-decoration: none;
+	}
+
+	.bio-images {
+		display: flex;
+		gap: 1rem;
+		margin-top: 2.5rem;
+	}
+
+	.bio-thumbnail {
+		width: 180px;
+		height: 150px;
+		object-fit: cover;
+		object-position: center;
+		border-radius: 6px;
+		box-shadow: var(--shadow);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.bio-thumbnail-turkey {
+		object-position: top center;
+	}
+
+	.bio-thumbnail:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-hover);
+	}
+
+	@media (max-width: 768px) {
+		.bio-container {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+
+		.bio-image-wrapper {
+			position: static;
+			max-width: 220px;
+			margin: 0 auto;
+		}
+
+		.bio-images {
+			flex-wrap: wrap;
+		}
+
+		.bio-thumbnail {
+			width: 140px;
+			height: 100px;
+		}
+
+		.bio-thumbnail-turkey {
+			object-position: top center;
+		}
+	}
+</style>

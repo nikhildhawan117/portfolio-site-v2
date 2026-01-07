@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+
+<BaseLayout title="Resume — Nikhil Dhawan">
+	<Header />
+	<main>
+		<section class="section resume-section">
+			<div class="container resume-container">
+				<div class="resume-header">
+					<h1>Resume</h1>
+					<a href="/resume.pdf" download class="download-btn">
+						<span class="btn-icon">↓</span>
+						Download PDF
+					</a>
+				</div>
+				<div class="resume-wrapper">
+					<iframe 
+						src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+						class="resume-iframe"
+						title="Nikhil Dhawan Resume"
+					></iframe>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+
+<style>
+	.resume-section {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+
+	.resume-container {
+		max-width: 900px;
+	}
+
+	.resume-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5rem;
+	}
+
+	h1 {
+		margin-bottom: 0;
+	}
+
+	.download-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		background-color: var(--accent);
+		color: white;
+		border-radius: 6px;
+		font-weight: 500;
+		font-size: 0.9rem;
+		transition: background-color 0.2s ease, transform 0.2s ease;
+		text-decoration: none;
+	}
+
+	.download-btn:hover {
+		background-color: var(--accent-hover);
+		transform: translateY(-2px);
+		color: white;
+	}
+
+	.btn-icon {
+		font-size: 1rem;
+	}
+
+	.resume-wrapper {
+		width: 100%;
+		height: 1200px;
+		border-radius: 4px;
+		overflow: hidden;
+		box-shadow: var(--shadow);
+		border: 1px solid var(--border);
+		background-color: var(--bg-secondary);
+	}
+
+	.resume-iframe {
+		width: 100%;
+		height: 100%;
+		border: none;
+		display: block;
+	}
+
+	@media (max-width: 768px) {
+		.resume-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1rem;
+		}
+
+		.resume-wrapper {
+			height: 1000px;
+		}
+	}
+</style>
