@@ -4,14 +4,14 @@ import Header from '../components/Header.astro';
 
 const images = [
 	{ src: "/images/pictures of nikhil/me_and_friend_nyc_skyline.jpeg", alt: "NYC Skyline" },
-	{ src: "/images/pictures of nikhil/me_cooking_with_turkey.jpeg", alt: "Cooking" },
+	{ src: "/images/pictures of nikhil/me_cooking_with_turkey.jpeg", alt: "Cooking", isTurkey: true },
 	{ src: "/images/pictures of nikhil/me_curling.jpeg", alt: "Curling" },
 	{ src: "/images/pictures of nikhil/me_hiking_in_joshua_tree.jpeg", alt: "Joshua Tree" },
 	{ src: "/images/pictures of nikhil/me_in_front_of_deep_mind_logo_london.jpeg", alt: "DeepMind London" },
 	{ src: "/images/pictures of nikhil/me_in_nottinghill_bookstore.jpeg", alt: "Notting Hill" },
 	{ src: "/images/pictures of nikhil/me_in_san_diego_sunset_breathtaking.jpeg", alt: "San Diego Sunset" },
 	{ src: "/images/pictures of nikhil/me_out_in_soho_with_champagne.jpeg", alt: "Soho" },
-	{ src: "/images/pictures of nikhil/me_shopping_with_margiela_bag.jpeg", alt: "Shopping" }
+	{ src: "/images/pictures of nikhil/me_shopping_with_margiela_bag.jpeg", alt: "Margiela" }
 ];
 ---
 
@@ -28,6 +28,7 @@ const images = [
 							<img 
 								src={image.src} 
 								alt={image.alt}
+								class={image.isTurkey ? "gallery-img gallery-img-turkey" : "gallery-img"}
 								loading="lazy"
 							/>
 							<div class="gallery-overlay">
@@ -67,14 +68,19 @@ const images = [
 		cursor: pointer;
 	}
 
-	.gallery-item img {
+	.gallery-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center;
 		transition: transform 0.4s ease;
 	}
 
-	.gallery-item:hover img {
+	.gallery-img-turkey {
+		object-position: top center;
+	}
+
+	.gallery-item:hover .gallery-img {
 		transform: scale(1.05);
 	}
 
@@ -89,7 +95,8 @@ const images = [
 		font-size: 0.9rem;
 		font-weight: 500;
 		opacity: 0;
-		transition: opacity 0.3s ease;
+		transition: opacity 0.1s ease;
+		pointer-events: none;
 	}
 
 	.gallery-item:hover .gallery-overlay {
@@ -111,7 +118,7 @@ const images = [
 
 <script>
 	// Simple lightbox functionality
-	document.querySelectorAll('.gallery-item img').forEach(img => {
+	document.querySelectorAll('.gallery-img').forEach(img => {
 		img.addEventListener('click', () => {
 			const lightbox = document.createElement('div');
 			lightbox.style.cssText = `
