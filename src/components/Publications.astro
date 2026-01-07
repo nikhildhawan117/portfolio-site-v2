@@ -114,6 +114,7 @@ const publications: Publication[] = [
 <style>
 	.publications-section {
 		background-color: var(--bg-secondary);
+		transition: background-color 0.1s ease-out;
 	}
 
 	.publications-grid {
@@ -130,7 +131,7 @@ const publications: Publication[] = [
 		background-color: var(--card-bg);
 		border-radius: 8px;
 		box-shadow: var(--shadow);
-		transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+		transition: background-color 0.1s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
 		will-change: transform;
 	}
 
