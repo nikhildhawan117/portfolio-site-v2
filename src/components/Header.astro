@@ -105,7 +105,7 @@
 	});
 	observer.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
 	
-	// Handle button click
+	// Handle theme button click
 	if (themeBtn) {
 		themeBtn.addEventListener('click', () => {
 			const currentTheme = html.getAttribute('data-theme');
@@ -114,6 +114,7 @@
 			localStorage.setItem('theme', newTheme);
 		});
 	}
+
 </script>
 
 <style is:global>
@@ -134,6 +135,14 @@
 	[data-theme="dark"] .header {
 		background-color: rgba(28, 26, 23, 0.92);
 		transition: background-color 0.1s ease-out;
+	}
+
+	[data-color-scheme="cool"][data-theme="light"] .header {
+		background-color: rgba(245, 247, 250, 0.92);
+	}
+
+	[data-color-scheme="cool"][data-theme="dark"] .header {
+		background-color: rgba(26, 32, 44, 0.92);
 	}
 
 	.nav-container {

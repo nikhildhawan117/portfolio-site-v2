@@ -8,7 +8,7 @@ const { title, description = "Nikhil Dhawan - Researcher at Google DeepMind" } =
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-color-scheme="cool">
 	<head>
 		<script is:inline>
 			// Immediately set theme to prevent flash
@@ -16,6 +16,12 @@ const { title, description = "Nikhil Dhawan - Researcher at Google DeepMind" } =
 				const savedTheme = localStorage.getItem('theme');
 				if (savedTheme) {
 					document.documentElement.setAttribute('data-theme', savedTheme);
+				}
+				const savedColorScheme = localStorage.getItem('colorScheme');
+				if (savedColorScheme) {
+					document.documentElement.setAttribute('data-color-scheme', savedColorScheme);
+				} else {
+					document.documentElement.setAttribute('data-color-scheme', 'cool');
 				}
 			})();
 		</script>
@@ -59,6 +65,39 @@ const { title, description = "Nikhil Dhawan - Researcher at Google DeepMind" } =
 				--card-bg: #252320;
 				--shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
 				--shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.3);
+			}
+
+			/* Cool color scheme (blues) */
+			[data-color-scheme="cool"] {
+				--bg-primary: #F5F7FA;
+				--bg-secondary: #E8EDF3;
+				--bg-tertiary: #DCE4ED;
+				--text-primary: #1A2332;
+				--text-secondary: #4A5568;
+				--text-muted: #718096;
+				--accent: #3182CE;
+				--accent-hover: #2C5AA0;
+				--accent-light: #BEE3F8;
+				--border: #CBD5E0;
+				--card-bg: #FFFFFF;
+				--shadow: 0 2px 20px rgba(26, 35, 50, 0.08);
+				--shadow-hover: 0 8px 30px rgba(26, 35, 50, 0.15);
+			}
+
+			[data-color-scheme="cool"][data-theme="dark"] {
+				--bg-primary: #1A202C;
+				--bg-secondary: #2D3748;
+				--bg-tertiary: #374151;
+				--text-primary: #E2E8F0;
+				--text-secondary: #A0AEC0;
+				--text-muted: #718096;
+				--accent: #63B3ED;
+				--accent-hover: #90CDF4;
+				--accent-light: #2C5282;
+				--border: #4A5568;
+				--card-bg: #2D3748;
+				--shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+				--shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.35);
 			}
 
 			* {
@@ -233,10 +272,12 @@ const { title, description = "Nikhil Dhawan - Researcher at Google DeepMind" } =
 	<body>
 		<slot />
 		<script>
-			// Load saved theme or default to light (Header component handles the toggle)
+			// Load saved theme and color scheme
 			const html = document.documentElement;
 			const savedTheme = localStorage.getItem('theme') || 'light';
+			const savedColorScheme = localStorage.getItem('colorScheme') || 'cool';
 			html.setAttribute('data-theme', savedTheme);
+			html.setAttribute('data-color-scheme', savedColorScheme);
 		</script>
 	</body>
 </html>

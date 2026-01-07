@@ -2,11 +2,59 @@
 ---
 
 <div id="network-graph-container" class="graph-container"></div>
+<button id="color-scheme-toggle" class="color-scheme-toggle" aria-label="Toggle color scheme" title="Toggle warm/cool colors">
+	<span id="color-scheme-icon">
+		<svg id="warm-icon" class="scheme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+		</svg>
+		<svg id="cool-icon" class="scheme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+			<path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m6.66 6.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m6.66-6.66l4.24-4.24"></path>
+			<circle cx="12" cy="12" r="3"></circle>
+		</svg>
+	</span>
+</button>
 <button id="toggle-graph" class="graph-toggle" aria-label="Toggle network graph">
 	<span class="graph-icon">✦</span>
 </button>
 
 <script>
+	// Color scheme toggle functionality
+	const colorSchemeBtn = document.getElementById('color-scheme-toggle');
+	const warmIcon = document.getElementById('warm-icon');
+	const coolIcon = document.getElementById('cool-icon');
+	const html = document.documentElement;
+	
+	if (colorSchemeBtn && warmIcon && coolIcon) {
+		function updateColorSchemeIcon() {
+			const currentScheme = html.getAttribute('data-color-scheme');
+			// Show the icon that represents what you'll switch TO (opposite of current)
+			if (currentScheme === 'warm') {
+				// Currently warm, so show snowflake (will switch to cool)
+				warmIcon.style.display = 'none';
+				coolIcon.style.display = 'block';
+			} else {
+				// Currently cool, so show fire (will switch to warm)
+				warmIcon.style.display = 'block';
+				coolIcon.style.display = 'none';
+			}
+		}
+		
+		updateColorSchemeIcon();
+		
+		colorSchemeBtn.addEventListener('click', () => {
+			const currentScheme = html.getAttribute('data-color-scheme');
+			const newScheme = currentScheme === 'warm' ? 'cool' : 'warm';
+			html.setAttribute('data-color-scheme', newScheme);
+			localStorage.setItem('colorScheme', newScheme);
+			updateColorSchemeIcon();
+		});
+		
+		// Watch for color scheme changes
+		const colorSchemeObserver = new MutationObserver(updateColorSchemeIcon);
+		colorSchemeObserver.observe(html, { attributes: true, attributeFilter: ['data-color-scheme'] });
+	}
+
+	// Network graph functionality
 	let graphActive = false;
 	const container = document.getElementById('network-graph-container');
 	const toggleButton = document.getElementById('toggle-graph');
@@ -94,10 +142,19 @@
 			
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			
-			// Get theme colors - using warm accent color
+			// Get theme colors - responsive to color scheme
 			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-			ctx.strokeStyle = isDark ? 'rgba(212, 133, 106, 0.15)' : 'rgba(196, 112, 75, 0.12)';
-			ctx.fillStyle = isDark ? 'rgba(212, 133, 106, 0.4)' : 'rgba(196, 112, 75, 0.35)';
+			const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'warm';
+			
+			// Warm colors (terracotta/red): #C4704B (light), #D4856A (dark)
+			// Cool colors (blue): #3182CE (light), #63B3ED (dark)
+			if (colorScheme === 'cool') {
+				ctx.strokeStyle = isDark ? 'rgba(99, 179, 237, 0.15)' : 'rgba(49, 130, 206, 0.12)';
+				ctx.fillStyle = isDark ? 'rgba(99, 179, 237, 0.4)' : 'rgba(49, 130, 206, 0.35)';
+			} else {
+				ctx.strokeStyle = isDark ? 'rgba(212, 133, 106, 0.15)' : 'rgba(196, 112, 75, 0.12)';
+				ctx.fillStyle = isDark ? 'rgba(212, 133, 106, 0.4)' : 'rgba(196, 112, 75, 0.35)';
+			}
 			
 			// Update and draw nodes
 			nodes.forEach(node => {
@@ -186,6 +243,41 @@
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity 0.4s ease;
+	}
+
+	.color-scheme-toggle {
+		position: fixed;
+		bottom: 6rem;
+		right: 2rem;
+		width: 48px;
+		height: 48px;
+		background-color: var(--card-bg);
+		color: var(--text-muted);
+		border-radius: 50%;
+		box-shadow: var(--shadow);
+		z-index: 50;
+		cursor: pointer;
+		border: 1px solid var(--border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease;
+	}
+
+	.color-scheme-toggle:hover {
+		box-shadow: var(--shadow-hover);
+		color: var(--accent);
+		transform: scale(1.05);
+	}
+
+	.scheme-icon {
+		width: 20px;
+		height: 20px;
+		transition: transform 0.2s ease;
+	}
+
+	.color-scheme-toggle:hover .scheme-icon {
+		transform: rotate(90deg);
 	}
 
 	.graph-toggle {
