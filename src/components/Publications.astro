@@ -221,10 +221,17 @@ const publications: Publication[] = [
 		color: var(--accent-hover);
 	}
 
+	@media (max-width: 900px) {
+		.publication-card {
+			gap: 1.5rem;
+		}
+	}
+
 	@media (max-width: 768px) {
 		.publication-card {
 			grid-template-columns: 1fr;
 			gap: 0.75rem;
+			padding: 1.5rem;
 		}
 
 		.pub-meta {
@@ -234,6 +241,16 @@ const publications: Publication[] = [
 
 		.pub-year {
 			font-size: 0.9rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.publication-card {
+			padding: 1.25rem;
+		}
+
+		.pub-title {
+			font-size: 1.1rem;
 		}
 	}
 </style>

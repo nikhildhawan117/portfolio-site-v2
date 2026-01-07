@@ -145,6 +145,18 @@
 		align-items: center;
 	}
 
+	@media (max-width: 1024px) {
+		.nav-container {
+			padding: 1.25rem 3rem;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.nav-container {
+			padding: 1.25rem 2.5rem;
+		}
+	}
+
 	.logo {
 		font-family: 'Fraunces', Georgia, serif;
 		font-size: 1.25rem;
@@ -290,6 +302,21 @@
 			flex-wrap: wrap;
 			justify-content: center;
 			gap: 1.25rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.nav-container {
+			padding: 1rem 1rem;
+		}
+
+		.nav-links {
+			gap: 1rem;
+			font-size: 0.85rem;
+		}
+
+		.logo {
+			font-size: 1.1rem;
 		}
 	}
 </style>
