@@ -8,19 +8,11 @@ import Header from '../components/Header.astro';
 	<main>
 		<section class="section resume-section">
 			<div class="container resume-container">
-				<div class="resume-header">
-					<h1>Resume</h1>
-					<a href="/resume.pdf" download class="download-btn">
-						<span class="btn-icon">↓</span>
-						Download PDF
-					</a>
-				</div>
-				<div class="resume-wrapper">
-					<iframe 
-						src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0" 
-						class="resume-iframe"
-						title="Nikhil Dhawan Resume"
-					></iframe>
+				<h1>Resume</h1>
+				<p class="resume-subtitle">View or download the PDF.</p>
+				<div class="resume-actions">
+					<a href="/resume.pdf" class="resume-link" target="_blank" rel="noopener noreferrer">Open PDF</a>
+					<a href="/resume.pdf" class="resume-link" download>Download PDF</a>
 				</div>
 			</div>
 		</section>
@@ -29,75 +21,54 @@ import Header from '../components/Header.astro';
 
 <style>
 	.resume-section {
-		padding-top: 2rem;
-		padding-bottom: 2rem;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
 	}
 
 	.resume-container {
-		max-width: 900px;
-	}
-
-	.resume-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 1.5rem;
+		max-width: 640px;
+		text-align: center;
 	}
 
 	h1 {
-		margin-bottom: 0;
+		margin-bottom: 1rem;
 	}
 
-	.download-btn {
+	.resume-subtitle {
+		color: var(--text-muted);
+		margin-bottom: 2rem;
+		line-height: 1.6;
+	}
+
+	.resume-actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.resume-link {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
+		justify-content: center;
+		padding: 0.85rem 1.5rem;
 		background-color: var(--accent);
 		color: white;
 		border-radius: 6px;
 		font-weight: 500;
-		font-size: 0.9rem;
-		transition: background-color 0.2s ease, transform 0.2s ease;
 		text-decoration: none;
+		transition: background-color 0.2s ease, transform 0.2s ease;
 	}
 
-	.download-btn:hover {
+	.resume-link:hover {
 		background-color: var(--accent-hover);
 		transform: translateY(-2px);
 		color: white;
 	}
 
-	.btn-icon {
-		font-size: 1rem;
-	}
-
-	.resume-wrapper {
-		width: 100%;
-		height: 1200px;
-		border-radius: 4px;
-		overflow: hidden;
-		box-shadow: var(--shadow);
-		border: 1px solid var(--border);
-		background-color: var(--bg-secondary);
-	}
-
-	.resume-iframe {
-		width: 100%;
-		height: 100%;
-		border: none;
-		display: block;
-	}
-
-	@media (max-width: 768px) {
-		.resume-header {
+	@media (max-width: 480px) {
+		.resume-actions {
 			flex-direction: column;
-			align-items: flex-start;
-			gap: 1rem;
-		}
-
-		.resume-wrapper {
-			height: 1000px;
 		}
 	}
 </style>
